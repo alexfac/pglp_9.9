@@ -1,8 +1,5 @@
 package uvsq21603110.Forme;
 
-import uvsq21603110.Forme.Forme;
-import uvsq21603110.Forme.Point;
-
 public class Rectangle extends Forme {
 
   String name;
@@ -19,8 +16,7 @@ public class Rectangle extends Forme {
 
   @Override
   public void move(double x, double y) {
-    this.P.x += x;
-    this.P.y += y;
+    this.P.addPoint(x, y);
   }
 
   @Override
@@ -31,7 +27,7 @@ public class Rectangle extends Forme {
             + ","
             + this.P.getY()
             + ")"
-            + ", longeur = "
+            + ", longueur = "
             + this.length
             + ", largeur = "
             + this.width

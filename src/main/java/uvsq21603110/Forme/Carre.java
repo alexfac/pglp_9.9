@@ -14,8 +14,7 @@ public class Carre extends Forme {
 
   @Override
   public void move(double x, double y) {
-    this.HG.x += x;
-    this.HG.y += y;
+    this.HG.addPoint(x, y);
   }
 
   @Override
@@ -26,7 +25,7 @@ public class Carre extends Forme {
             + ","
             + this.HG.getY()
             + ")"
-            + ", longeur = "
+            + ", côté = "
             + this.side
             + ")");
   }

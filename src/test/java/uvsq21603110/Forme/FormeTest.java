@@ -14,6 +14,7 @@ public class FormeTest {
     assertEquals(r.P.getY(), 2, 0);
     r.show();
   }
+
   @Test
   public void testCarre() {
     Point p = new Point(1, 1);
@@ -23,5 +24,33 @@ public class FormeTest {
     assertEquals(c.HG.getX(), 2, 0);
     assertEquals(c.HG.getY(), 2, 0);
     c.show();
+  }
+
+  @Test
+  public void testCercle() {
+    Point p = new Point(1, 1);
+    Cercle c = new Cercle("c1", p, 10);
+    c.show();
+    c.move(1, 1);
+    assertEquals(c.centre.getX(), 2, 0);
+    assertEquals(c.centre.getY(), 2, 0);
+    c.show();
+  }
+
+  @Test
+  public void testTriangle() {
+    Point p = new Point(1, 1);
+    Point p2 = new Point(2, 2);
+    Point p3 = new Point(0, 0);
+    Triangle t = new Triangle("t1", p, p2, p3);
+    t.show();
+    t.move(1, 1);
+    assertEquals(t.P1.getX(), 2, 0);
+    assertEquals(t.P1.getY(), 2, 0);
+    assertEquals(t.P2.getX(), 3, 0);
+    assertEquals(t.P2.getY(), 3, 0);
+    assertEquals(t.P3.getX(), 1, 0);
+    assertEquals(t.P3.getY(), 1, 0);
+    t.show();
   }
 }
