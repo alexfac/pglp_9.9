@@ -2,6 +2,10 @@ package uvsq21603110.Forme;
 
 public abstract class Forme {
 
+  public String getName() {
+    return name;
+  }
+
   private String name;
 
   public Forme(String name) {

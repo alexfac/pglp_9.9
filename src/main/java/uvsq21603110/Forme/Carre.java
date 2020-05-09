@@ -2,6 +2,14 @@ package uvsq21603110.Forme;
 
 public class Carre extends Forme {
 
+  public Point getHG() {
+    return HG;
+  }
+
+  public double getSide() {
+    return side;
+  }
+
   Point HG;
   double side;
 
