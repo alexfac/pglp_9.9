@@ -2,12 +2,11 @@ package uvsq21603110.Forme;
 
 public class Carre extends Forme {
 
-  String name;
   Point HG;
   double side;
 
   public Carre(String name, Point HG, double side) {
-    this.name = name;
+    super(name);
     this.HG = HG;
     this.side = side;
   }

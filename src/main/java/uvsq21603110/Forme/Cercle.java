@@ -2,12 +2,11 @@ package uvsq21603110.Forme;
 
 public class Cercle extends Forme {
 
-  String name;
   Point centre;
   double rayon;
 
   public Cercle(String name, Point centre, double rayon) {
-    this.name = name;
+    super(name);
     this.centre = centre;
     this.rayon = rayon;
   }

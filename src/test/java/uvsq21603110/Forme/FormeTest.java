@@ -53,4 +53,21 @@ public class FormeTest {
     assertEquals(t.P3.getY(), 1, 0);
     t.show();
   }
+
+  @Test
+  public void testGroupe(){
+    groupeForme g = new groupeForme("1");
+    Point p = new Point(1, 1);
+    Cercle c = new Cercle("c1", p, 10);
+    p = new Point(1, 1);
+    Point p2 = new Point(2, 2);
+    Point p3 = new Point(0, 0);
+    Triangle t = new Triangle("t1", p, p2, p3);
+
+    g.addForme(t);
+    g.addForme(c);
+    g.show();
+    g.move(2,2);
+    g.show();
+  }
 }

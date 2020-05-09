@@ -2,13 +2,12 @@ package uvsq21603110.Forme;
 
 public class Triangle extends Forme {
 
-  String name;
   Point P1;
   Point P2;
   Point P3;
 
   public Triangle(String name, Point P1, Point P2, Point P3) {
-    this.name = name;
+    super(name);
     this.P1 = P1;
     this.P2 = P2;
     this.P3 = P3;

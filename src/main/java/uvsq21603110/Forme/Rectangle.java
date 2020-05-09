@@ -2,13 +2,12 @@ package uvsq21603110.Forme;
 
 public class Rectangle extends Forme {
 
-  String name;
   Point P;
   double length;
   double width;
 
   public Rectangle(String name, Point HG, double length, double width) {
-    this.name = name;
+    super(name);
     this.P = HG;
     this.length = length;
     this.width = width;
