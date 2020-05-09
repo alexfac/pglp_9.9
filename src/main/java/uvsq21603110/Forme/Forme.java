@@ -4,7 +4,7 @@ public abstract class Forme {
 
   private String name;
 
-  public Forme(String name){
+  public Forme(String name) {
     this.name = name;
   }
 
