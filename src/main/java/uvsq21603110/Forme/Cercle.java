@@ -5,6 +5,14 @@ public class Cercle extends Forme {
   Point centre;
   double rayon;
 
+  public Point getCentre() {
+    return centre;
+  }
+
+  public Double getRayon() {
+    return rayon;
+  }
+
   public Cercle(String name, Point centre, double rayon) {
     super(name);
     this.centre = centre;

@@ -6,6 +6,18 @@ public class Rectangle extends Forme {
   double length;
   double width;
 
+  public Point getP() {
+    return P;
+  }
+
+  public double getWidth() {
+    return width;
+  }
+
+  public double getLength() {
+    return length;
+  }
+
   public Rectangle(String name, Point HG, double length, double width) {
     super(name);
     this.P = HG;

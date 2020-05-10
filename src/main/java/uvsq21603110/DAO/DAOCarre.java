@@ -13,7 +13,8 @@ public class DAOCarre extends DAOJdbc<Carre> {
     this.open();
     try {
       PreparedStatement insertCarre =
-          this.connect.prepareStatement("INSERT INTO Carre(nom, hautgauchex, hautgauchey, cote) VALUES(?,?,?,?)");
+          this.connect.prepareStatement(
+              "INSERT INTO Carre(nom, hautgauchex, hautgauchey, cote) VALUES(?,?,?,?)");
       insertCarre.setString(1, obj.getName());
       insertCarre.setObject(2, obj.getHG().getX());
       insertCarre.setObject(3, obj.getHG().getY());
@@ -30,20 +31,24 @@ public class DAOCarre extends DAOJdbc<Carre> {
   public Carre find(String name) {
     this.open();
     Carre c = null;
-      try {
-          PreparedStatement selectCarre = this.connect.prepareStatement("SELECT * FROM Carre WHERE nom = ?");
-          selectCarre.setString(1,name);
-          selectCarre.execute();
-          ResultSet Res = selectCarre.executeQuery();
-          if (Res.next()){
-              Point p = new Point(Res.getDouble("hautgauchex"), Res.getDouble("hautgauchey"));
-              c = new Carre(name, p, Res.getDouble("cote"));
-          }
-      } catch (SQLException throwables) {
-          throwables.printStackTrace();
+    try {
+      PreparedStatement selectCarre =
+          this.connect.prepareStatement("SELECT * FROM Carre WHERE nom = ?");
+      selectCarre.setString(1, name);
+      selectCarre.execute();
+      ResultSet Res = selectCarre.executeQuery();
+      if (Res.next()) {
+        c =
+            new Carre(
+                name,
+                new Point(Res.getDouble("hautgauchex"), Res.getDouble("hautgauchey")),
+                Res.getDouble("cote"));
       }
-      this.close();
-      return c;
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+    this.close();
+    return c;
   }
 
   @Override
@@ -53,15 +58,16 @@ public class DAOCarre extends DAOJdbc<Carre> {
 
   @Override
   public void delete(String name) {
-      this.open();
-      try {
-          PreparedStatement deleteCarre = this.connect.prepareStatement("DELETE FROM Carre WHERE nom = ?");
-          deleteCarre.setString(1,name);
-          deleteCarre.execute();
-      } catch (SQLException throwables) {
-          throwables.printStackTrace();
-      }
+    this.open();
+    try {
+      PreparedStatement deleteCarre =
+          this.connect.prepareStatement("DELETE FROM Carre WHERE nom = ?");
+      deleteCarre.setString(1, name);
+      deleteCarre.execute();
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
 
-      this.close();
+    this.close();
   }
 }

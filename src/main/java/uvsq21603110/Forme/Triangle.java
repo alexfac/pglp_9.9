@@ -6,6 +6,18 @@ public class Triangle extends Forme {
   Point P2;
   Point P3;
 
+  public Point getP1() {
+    return P1;
+  }
+
+  public Point getP2() {
+    return P2;
+  }
+
+  public Point getP3() {
+    return P3;
+  }
+
   public Triangle(String name, Point P1, Point P2, Point P3) {
     super(name);
     this.P1 = P1;
