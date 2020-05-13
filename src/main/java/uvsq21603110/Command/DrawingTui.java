@@ -27,13 +27,13 @@ public class DrawingTui {
                     String[] carre = in.split(",");
                     double x = Double.parseDouble(carre[0].substring(carre[0].lastIndexOf('(')+1));
                     double y = Double.parseDouble(carre[1].substring(0, carre[1].indexOf(')')));
-                    double side = Double.parseDouble(carre[1].substring(0, carre[2].length()-2));
+                    double side = Double.parseDouble(carre[1].substring(0, carre[2].length()-1));
                     command = new CommandCarre(groupeForme, name, new Point(x,y), side);
                 }else if(forme.matches("cercle")){
                     String[] cercle = in.split(",");
                     double x = Double.parseDouble(cercle[0].substring(cercle[0].lastIndexOf('(')+1));
                     double y = Double.parseDouble(cercle[1].substring(0, cercle[1].indexOf(')')));
-                    double rayon = Double.parseDouble(cercle[1].substring(0, cercle[2].length()-2));
+                    double rayon = Double.parseDouble(cercle[1].substring(0, cercle[2].length()-1));
                     command = new CommandCercle(groupeForme, name, new Point(x,y), rayon);
                 } else if(forme.matches("rectangle")){
                     String[] rectangle = in.split(",");
@@ -53,14 +53,20 @@ public class DrawingTui {
                     command = new CommandTriangle(groupeForme, name, new Point(x,y), new Point(x1,y1), new Point(x2,y2));
                 }
             } else if (in.contains("move")){
-                String nForme = in.substring(in.indexOf("(") + 1, in.lastIndexOf(",("));
-                double x = Double.parseDouble(in.substring(in.lastIndexOf("(")+1, in.lastIndexOf(',')));
-                double y = Double.parseDouble(in.substring(in.lastIndexOf(",")+1, in.lastIndexOf("))")));
-                for (Forme forme : groupeForme.getListforme()){
-                    if (forme.getName().contains(nForme)){
-                        command = new CommandMove(forme, x, y);
+                if (in.contains("all")){
+                    double x = Double.parseDouble(in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(',')));
+                    double y = Double.parseDouble(in.substring(in.lastIndexOf(",") + 1, in.lastIndexOf(')')));
+                    command = new CommandMove(groupeForme, x, y);
+                } else {
+                  String nForme = in.substring(in.indexOf("(") + 1, in.lastIndexOf(",("));
+                  double x = Double.parseDouble(in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(',')));
+                  double y = Double.parseDouble(in.substring(in.lastIndexOf(",") + 1, in.lastIndexOf("))")));
+                  for (Forme forme : groupeForme.getListforme()) {
+                    if (forme.getName().contains(nForme)) {
+                      command = new CommandMove(forme, x, y);
                     }
-                }
+                  }
+                } // c=carre((0,0),0) t=triangle((0,0),(0,0),(0,0)) ce=cercle((0,0),0) r=rectangle((0,0),10,10)
             } else if (in.contains("quit")){
                 command = new Commandquit();
             }

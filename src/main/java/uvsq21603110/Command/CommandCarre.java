@@ -19,6 +19,6 @@ public class CommandCarre extends CommandGroupe {
 
   @Override
   public void execute() {
-      super.gf.addForme(new Carre(name, hg, side));
+    super.gf.addForme(new Carre(name, hg, side));
   }
 }
