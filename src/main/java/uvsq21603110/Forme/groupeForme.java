@@ -3,6 +3,10 @@ package uvsq21603110.Forme;
 import java.util.ArrayList;
 
 public class groupeForme extends Forme {
+  public ArrayList<Forme> getListforme() {
+    return listforme;
+  }
+
   private ArrayList<Forme> listforme;
 
   public groupeForme(String nom) {
