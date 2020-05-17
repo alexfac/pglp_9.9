@@ -11,8 +11,8 @@ public class DrawingTui {
   private Scanner scan;
   private groupeForme groupeForme;
 
-  public DrawingTui() {
-    this.groupeForme = new groupeForme("test");
+  public DrawingTui(String name) {
+    this.groupeForme = new groupeForme(name);
     this.scan = new Scanner(System.in);
   }
 
@@ -110,6 +110,7 @@ public class DrawingTui {
   }
 
   public void show() {
+    System.out.println("Nom du groupe : " + groupeForme.getName());
     for (Forme forme : groupeForme.getListforme()) {
       forme.show();
     }

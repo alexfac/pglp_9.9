@@ -14,7 +14,7 @@ public class DAORectangle extends DAOJdbc<Rectangle> {
     try {
       PreparedStatement insertRectangle =
           this.connect.prepareStatement(
-              "INSERT INTO Carre(nom, hautgauchex, hautgauchey, longueur, largeur) VALUES(?,?,?,?,?)");
+              "INSERT INTO Rectangle(nom, hautgauchex, hautgauchey, longueur, largeur) VALUES(?,?,?,?,?)");
       insertRectangle.setString(1, obj.getName());
       insertRectangle.setObject(2, obj.getP().getX());
       insertRectangle.setObject(3, obj.getP().getY());
@@ -33,11 +33,11 @@ public class DAORectangle extends DAOJdbc<Rectangle> {
     this.open();
     Rectangle r = null;
     try {
-      PreparedStatement selectCarre =
+      PreparedStatement selectRectangle =
           this.connect.prepareStatement("SELECT * FROM Rectangle WHERE nom = ?");
-      selectCarre.setString(1, name);
-      selectCarre.execute();
-      ResultSet Res = selectCarre.executeQuery();
+      selectRectangle.setString(1, name);
+      selectRectangle.execute();
+      ResultSet Res = selectRectangle.executeQuery();
       if (Res.next()) {
         Point p = new Point(Res.getDouble("hautgauchex"), Res.getDouble("hautgauchey"));
         r = new Rectangle(name, p, Res.getDouble("longueur"), Res.getDouble("largeur"));

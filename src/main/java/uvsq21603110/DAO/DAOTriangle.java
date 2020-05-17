@@ -14,7 +14,7 @@ public class DAOTriangle extends DAOJdbc<Triangle> {
     try {
       PreparedStatement insertTriangle =
           this.connect.prepareStatement(
-              "INSERT INTO Carre(nom, 1x, 1y, 2x, 2y, 3x, 3y) VALUES(?,?,?,?,?,?,?)");
+              "INSERT INTO Triangle(nom, 1x, 1y, 2x, 2y, 3x, 3y) VALUES(?,?,?,?,?,?,?)");
       insertTriangle.setString(1, obj.getName());
       insertTriangle.setObject(2, obj.getP1().getX());
       insertTriangle.setObject(3, obj.getP1().getY());
@@ -36,11 +36,11 @@ public class DAOTriangle extends DAOJdbc<Triangle> {
     this.open();
     Triangle t = null;
     try {
-      PreparedStatement selectCarre =
+      PreparedStatement selectTriangle =
           this.connect.prepareStatement("SELECT * FROM Carre WHERE nom = ?");
-      selectCarre.setString(1, name);
-      selectCarre.execute();
-      ResultSet Res = selectCarre.executeQuery();
+      selectTriangle.setString(1, name);
+      selectTriangle.execute();
+      ResultSet Res = selectTriangle.executeQuery();
       if (Res.next()) {
         t =
             new Triangle(

@@ -7,6 +7,7 @@ public class groupeForme extends Forme {
     return listforme;
   }
 
+  private String name;
   private ArrayList<Forme> listforme;
 
   public groupeForme(String nom) {
