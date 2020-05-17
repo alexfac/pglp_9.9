@@ -11,7 +11,8 @@ public class CommandRectangle extends CommandGroupe {
   private double longueur;
   private double largeur;
 
-  public CommandRectangle(groupeForme groupeForme, String name, Point point, double longueur, double largeur) {
+  public CommandRectangle(
+      groupeForme groupeForme, String name, Point point, double longueur, double largeur) {
     super(groupeForme);
     this.name = name;
     this.point = point;
@@ -21,6 +22,6 @@ public class CommandRectangle extends CommandGroupe {
 
   @Override
   public void execute() {
-    super.gf.addForme(new Rectangle(name,point,longueur,largeur));
+    super.gf.addForme(new Rectangle(name, point, longueur, largeur));
   }
 }

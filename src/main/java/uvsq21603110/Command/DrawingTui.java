@@ -96,7 +96,7 @@ public class DrawingTui {
             System.out.println("Commande invalide");
           }
         } // c=carre((0,0),0) t=triangle((0,0),(0,0),(0,0)) ce=cercle((0,0),0)
-          // r=rectangle((0,0),10,10)
+        // r=rectangle((0,0),10,10)
       } else if (in.contains("delete")) {
         String nameForme = in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(")"));
         command = new CommandDeleteForme(groupeForme, nameForme);

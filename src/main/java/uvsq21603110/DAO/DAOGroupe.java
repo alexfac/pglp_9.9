@@ -11,15 +11,18 @@ public class DAOGroupe extends DAOJdbc<groupeForme> {
   @Override
   public groupeForme create(groupeForme obj) {
     this.open();
-    try{
-      PreparedStatement insertGroupe = this.connect.prepareStatement("INSERT INTO Groupe(nom) VALUES (?)");
-      PreparedStatement insertIntoGroupe = this.connect.prepareStatement("INSERT INTO intoGroupe(nom, nomforme, forme) VALUES (?,?,?)");
-      insertGroupe.setString(1,obj.getName());
+    try {
+      PreparedStatement insertGroupe =
+          this.connect.prepareStatement("INSERT INTO Groupe(nom) VALUES (?)");
+      PreparedStatement insertIntoGroupe =
+          this.connect.prepareStatement(
+              "INSERT INTO intoGroupe(nom, nomforme, forme) VALUES (?,?,?)");
+      insertGroupe.setString(1, obj.getName());
       insertGroupe.execute();
 
       ArrayList<Forme> listforme = obj.getListforme();
-      for (Forme forme : listforme){
-        if (forme instanceof Carre){
+      for (Forme forme : listforme) {
+        if (forme instanceof Carre) {
           DAOJdbc dao = new DAOCarre();
           dao.create(forme);
           insertIntoGroupe.setString(1, obj.getName());
@@ -45,7 +48,7 @@ public class DAOGroupe extends DAOJdbc<groupeForme> {
           dao.create(forme);
           insertIntoGroupe.setString(1, obj.getName());
           insertIntoGroupe.setString(2, forme.getName());
-          insertIntoGroupe.setString(3,"triangle");
+          insertIntoGroupe.setString(3, "triangle");
           insertIntoGroupe.execute();
         }
       }
@@ -62,16 +65,19 @@ public class DAOGroupe extends DAOJdbc<groupeForme> {
   public groupeForme find(String name) {
     this.open();
     groupeForme gf = null;
-    try{
-      PreparedStatement selectGroupe = this.connect.prepareStatement("SELECT * FROM Groupe WHERE nom = ?");
-      PreparedStatement selectIntoGroupe = this.connect.prepareStatement("INSERT INTO intoGroupe(nom, nomforme, forme) VALUES (?,?,?)");
+    try {
+      PreparedStatement selectGroupe =
+          this.connect.prepareStatement("SELECT * FROM Groupe WHERE nom = ?");
+      PreparedStatement selectIntoGroupe =
+          this.connect.prepareStatement(
+              "INSERT INTO intoGroupe(nom, nomforme, forme) VALUES (?,?,?)");
       selectGroupe.setString(1, name);
-      selectIntoGroupe.setString(1,name);
+      selectIntoGroupe.setString(1, name);
       ResultSet res = selectGroupe.executeQuery();
       ResultSet res1 = selectIntoGroupe.executeQuery();
       if (res.next()) {
         gf = new groupeForme(name);
-        while(res1.next()){
+        while (res1.next()) {
           if (res1.getString("forme") == "carre") {
             DAOJdbc dao = new DAOCarre();
             gf.addForme((Carre) dao.find(res1.getString("nom")));
@@ -104,7 +110,7 @@ public class DAOGroupe extends DAOJdbc<groupeForme> {
     this.open();
     try {
       PreparedStatement deleteGroupe =
-              this.connect.prepareStatement("DELETE FROM Groupe WHERE nom = ?");
+          this.connect.prepareStatement("DELETE FROM Groupe WHERE nom = ?");
       deleteGroupe.setString(1, name);
       deleteGroupe.execute();
     } catch (SQLException throwables) {

@@ -4,10 +4,9 @@ import uvsq21603110.Forme.groupeForme;
 
 public abstract class CommandGroupe implements Command {
 
-    protected groupeForme gf;
+  protected groupeForme gf;
 
-    public CommandGroupe(groupeForme gf){
-        this.gf = gf;
-    }
-
+  public CommandGroupe(groupeForme gf) {
+    this.gf = gf;
+  }
 }

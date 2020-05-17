@@ -11,7 +11,8 @@ public class CommandTriangle extends CommandGroupe {
   private Point point1;
   private Point point2;
 
-  public CommandTriangle(groupeForme groupeForme, String name, Point point, Point point1, Point point2) {
+  public CommandTriangle(
+      groupeForme groupeForme, String name, Point point, Point point1, Point point2) {
     super(groupeForme);
     this.name = name;
     this.point = point;
