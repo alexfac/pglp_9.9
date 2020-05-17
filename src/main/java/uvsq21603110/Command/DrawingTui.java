@@ -67,9 +67,13 @@ public class DrawingTui {
                     }
                   }
                 } // c=carre((0,0),0) t=triangle((0,0),(0,0),(0,0)) ce=cercle((0,0),0) r=rectangle((0,0),10,10)
-            } else if (in.contains("quit")){
+            } else if (in.contains("delete")){
+                String nameForme = in.substring(in.lastIndexOf("(")+1, in.lastIndexOf(")"));
+                command = new CommandDeleteForme(groupeForme, nameForme);
+            }else if (in.contains("quit")){
                 command = new Commandquit();
             }
+            else System.out.println("Commande n'existe pas");
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
