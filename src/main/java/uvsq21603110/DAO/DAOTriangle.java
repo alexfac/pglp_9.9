@@ -14,7 +14,7 @@ public class DAOTriangle extends DAOJdbc<Triangle> {
     try {
       PreparedStatement insertTriangle =
           this.connect.prepareStatement(
-              "INSERT INTO Triangle(nom, 1x, 1y, 2x, 2y, 3x, 3y) VALUES(?,?,?,?,?,?,?)");
+              "INSERT INTO Triangle(nom, ax, ay, dx, dy, cx, cy) VALUES(?,?,?,?,?,?,?)");
       insertTriangle.setString(1, obj.getName());
       insertTriangle.setObject(2, obj.getP1().getX());
       insertTriangle.setObject(3, obj.getP1().getY());
@@ -37,7 +37,7 @@ public class DAOTriangle extends DAOJdbc<Triangle> {
     Triangle t = null;
     try {
       PreparedStatement selectTriangle =
-          this.connect.prepareStatement("SELECT * FROM Carre WHERE nom = ?");
+          this.connect.prepareStatement("SELECT * FROM Triangle WHERE nom = ?");
       selectTriangle.setString(1, name);
       selectTriangle.execute();
       ResultSet Res = selectTriangle.executeQuery();
@@ -45,9 +45,9 @@ public class DAOTriangle extends DAOJdbc<Triangle> {
         t =
             new Triangle(
                 name,
-                new Point(Res.getDouble("1x"), Res.getDouble("1y")),
-                new Point(Res.getDouble("2x"), Res.getDouble("2y")),
-                new Point(Res.getDouble("3x"), Res.getDouble("3y")));
+                new Point(Res.getDouble("ax"), Res.getDouble("ay")),
+                new Point(Res.getDouble("dx"), Res.getDouble("dy")),
+                new Point(Res.getDouble("cx"), Res.getDouble("cy")));
       }
     } catch (SQLException throwables) {
       throwables.printStackTrace();

@@ -16,6 +16,11 @@ public class DrawingTui {
     this.scan = new Scanner(System.in);
   }
 
+  public void setGroupeForme(groupeForme groupeForme) {
+    System.out.println(groupeForme.getName());
+    this.groupeForme = groupeForme;
+  }
+
   public Command nextCommand() {
     Command command = null;
     String in = this.scan.nextLine();
@@ -102,6 +107,11 @@ public class DrawingTui {
         command = new CommandDeleteForme(groupeForme, nameForme);
       } else if (in.contains("quit")) {
         command = new Commandquit();
+      }else if(in.contains("save")){
+        command = new CommandSave(this.groupeForme);
+      }else if( in.contains("load")){
+        String name = in.substring(in.indexOf("(") + 1, in.lastIndexOf(")"));
+        command = new CommandLoad(name, this);
       } else System.out.println("Verifiez votre commande");
     } catch (NumberFormatException e) {
       System.out.println("Verifiez votre commande");

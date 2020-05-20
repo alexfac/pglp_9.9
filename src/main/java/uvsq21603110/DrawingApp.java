@@ -18,24 +18,38 @@ public class DrawingApp {
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-      connexion = DriverManager.getConnection("jdbc:derby:test;create=false");
+      connexion = DriverManager.getConnection("jdbc:derby:Test;create=true");
       statement = connexion.createStatement();
+/*
+      String delete = "DROP TABLE Groupe";
+      statement.execute(delete);
+      delete = "DROP TABLE intoGroupe";
+      statement.execute(delete);
+      delete = "DROP TABLE Carre";
+      statement.execute(delete);
+      delete = "DROP TABLE Cercle";
+      statement.execute(delete);
+      delete = "DROP TABLE Triangle";
+      statement.execute(delete);
+      delete = "DROP TABLE Rectangle";
+      statement.execute(delete);
+*/
 
       String Table = "CREATE TABLE Groupe(nom varchar(30))";
       statement.execute(Table);
       Table = "CREATE TABLE intoGroupe(nom varchar(50), nomforme varchar(50), forme varchar(30))";
       statement.execute(Table);
       Table =
-          "CREATE TABLE  Carre(nom varchar(50), hautgauchex double(7,2), hautgauchey double(7,2), cote double(7,2)))";
+          "CREATE TABLE  Carre(nom varchar(50), hautgauchex double, hautgauchey double, cote double)";
       statement.execute(Table);
       Table =
-          "CREATE TABLE  Triangle(nom varchar(50), 1x double(7,2), 1y double(7,2), 2x double(7,2), 2y double(7,2), 3x double(7,2), 3y double(7,2))";
+          "CREATE TABLE  Triangle(nom varchar(50), ax double, ay double, dx double, dy double, cx double, cy double)";
       statement.execute(Table);
       Table =
-          "CREATE TABLE  Cercle(nom varchar(50), centrex double(7,2), centrey double(7,2), rayon double(7,2))";
+          "CREATE TABLE  Cercle(nom varchar(50), centrex double, centrey double, rayon double)";
       statement.execute(Table);
       Table =
-          "CREATE TABLE  Rectangle(nom varchar(50), hautgauchex double(7,2), hautgauchey double(7,2), longueur double(7,2), largeur double(7,2))";
+          "CREATE TABLE  Rectangle(nom varchar(50), hautgauchex double, hautgauchey double, longueur double, largeur double)";
       statement.execute(Table);
       connexion.close();
     } catch (ClassNotFoundException | SQLException e) {
@@ -49,6 +63,7 @@ public class DrawingApp {
   }
 
   public void run() {
+    initDAOJdbc();
     System.out.println("Entrez le nom de votre dessin : ");
     Scanner scan = new Scanner(System.in);
     String name = scan.nextLine();

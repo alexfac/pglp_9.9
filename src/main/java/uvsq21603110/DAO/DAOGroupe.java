@@ -37,14 +37,14 @@ public class DAOGroupe extends DAOJdbc<groupeForme> {
           insertIntoGroupe.setString(3, "cercle");
           insertIntoGroupe.execute();
         } else if (forme instanceof Rectangle) {
-          DAOJdbc dao = new DAOCercle();
+          DAOJdbc dao = new DAORectangle();
           dao.create(forme);
           insertIntoGroupe.setString(1, obj.getName());
           insertIntoGroupe.setString(2, forme.getName());
           insertIntoGroupe.setString(3, "rectangle");
           insertIntoGroupe.execute();
         } else if (forme instanceof Triangle) {
-          DAOJdbc dao = new DAOCercle();
+          DAOJdbc dao = new DAOTriangle();
           dao.create(forme);
           insertIntoGroupe.setString(1, obj.getName());
           insertIntoGroupe.setString(2, forme.getName());
@@ -56,7 +56,7 @@ public class DAOGroupe extends DAOJdbc<groupeForme> {
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
-
+    System.out.println("Sauvegarde effectue");
     this.close();
     return obj;
   }
@@ -70,7 +70,7 @@ public class DAOGroupe extends DAOJdbc<groupeForme> {
           this.connect.prepareStatement("SELECT * FROM Groupe WHERE nom = ?");
       PreparedStatement selectIntoGroupe =
           this.connect.prepareStatement(
-              "INSERT INTO intoGroupe(nom, nomforme, forme) VALUES (?,?,?)");
+              "SELECT * FROM intoGroupe WHERE nom = ? ");
       selectGroupe.setString(1, name);
       selectIntoGroupe.setString(1, name);
       ResultSet res = selectGroupe.executeQuery();
@@ -78,17 +78,21 @@ public class DAOGroupe extends DAOJdbc<groupeForme> {
       if (res.next()) {
         gf = new groupeForme(name);
         while (res1.next()) {
-          if (res1.getString("forme") == "carre") {
+          if (res1.getString("forme").contains("carre")) {
             DAOJdbc dao = new DAOCarre();
+            System.out.println("Forme trouve");
             gf.addForme((Carre) dao.find(res1.getString("nom")));
-          } else if (res1.getString("forme") == "cercle") {
+          } else if (res1.getString("forme").contains("cercle")) {
             DAOJdbc dao = new DAOCercle();
+            System.out.println("Forme trouve");
             gf.addForme((Cercle) dao.find(res1.getString("nom")));
-          } else if (res1.getString("forme") == "rectangle") {
+          } else if (res1.getString("forme").contains("rectangle")) {
             DAOJdbc dao = new DAORectangle();
+            System.out.println("Forme trouve");
             gf.addForme((Rectangle) dao.find(res1.getString("nom")));
-          } else if (res1.getString("forme") == "triangle") {
+          } else if (res1.getString("forme").contains("triangle")) {
             DAOJdbc dao = new DAOCarre();
+            System.out.println("Forme trouve");
             gf.addForme((Triangle) dao.find(res1.getString("nom")));
           }
         }

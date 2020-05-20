@@ -17,7 +17,7 @@ public abstract class DAOJdbc<T> {
   public abstract void delete(String name);
 
   public void open() {
-    String url = "jdbc:derby:DrawingTest;create=true";
+    String url = "jdbc:derby:Test;create=false";
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
     } catch (ClassNotFoundException e) {
