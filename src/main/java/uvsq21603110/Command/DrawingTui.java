@@ -18,13 +18,13 @@ public class DrawingTui {
 
   public void setGroupeForme(groupeForme groupeForme) {
     this.groupeForme = groupeForme;
-    this.show();
   }
 
   public Command nextCommand() {
     Command command = null;
     String in = this.scan.nextLine();
     try {
+      in = in.replace(" ", "");
       if (in.contains("=")) {
         String[] createforme = in.split("=");
         String name = createforme[0];

@@ -14,10 +14,10 @@ public class CommandLoad implements Command {
 
   @Override
   public void execute() {
-    try{
+    try {
       this.dt.setGroupeForme(DAOFactory.getDAOGroupe().find(this.name));
-    }catch (Exception e){
-      System.out.println(e);
+    } catch (Exception e) {
+      System.out.println("le dessin n'existe pas");
     }
   }
 }

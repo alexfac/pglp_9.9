@@ -71,7 +71,7 @@ public class AppTest {
     daogroupe.create(g);
     groupeForme g1 = (groupeForme) daogroupe.find("1");
     assertEquals(g1.getListforme().size(), g.getListforme().size());
-    for (int i = 0; i < g1.getListforme().size(); i++){
+    for (int i = 0; i < g1.getListforme().size(); i++) {
       g1.getListforme().get(i).show();
     }
   }
