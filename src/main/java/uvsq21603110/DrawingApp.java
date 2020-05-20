@@ -52,7 +52,7 @@ public class DrawingApp {
       statement.execute(Table);
       connexion.close();
     } catch (ClassNotFoundException | SQLException e) {
-      e.printStackTrace();
+      // e.printStackTrace();
       try {
         connexion.close();
       } catch (SQLException ex) {
@@ -77,6 +77,8 @@ public class DrawingApp {
     System.out.println(" delete(nomForme)");
     System.out.println(" move(nomForme,(1,1))");
     System.out.println(" moveall(1,1)");
+    System.out.println(" save");
+    System.out.println(" load(nomDessin)");
     System.out.println(" quit");
     System.out.println("---------------------------------------------------");
     while (true) {

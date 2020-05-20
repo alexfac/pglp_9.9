@@ -79,19 +79,15 @@ public class DAOGroupe extends DAOJdbc<groupeForme> {
         while (res1.next()) {
           if (res1.getString("forme").contains("carre")) {
             DAOJdbc dao = new DAOCarre();
-            System.out.println("Forme trouve");
             gf.addForme((Carre) dao.find(res1.getString("nomforme")));
           } else if (res1.getString("forme").contains("cercle")) {
             DAOJdbc dao = new DAOCercle();
-            System.out.println("Forme trouve");
             gf.addForme((Cercle) dao.find(res1.getString("nomforme")));
           } else if (res1.getString("forme").contains("rectangle")) {
             DAOJdbc dao = new DAORectangle();
-            System.out.println("Forme trouve");
             gf.addForme((Rectangle) dao.find(res1.getString("nomforme")));
           } else if (res1.getString("forme").contains("triangle")) {
             DAOJdbc dao = new DAOTriangle();
-            System.out.println("Forme trouve");
             gf.addForme((Triangle) dao.find(res1.getString("nomforme")));
           }
         }
