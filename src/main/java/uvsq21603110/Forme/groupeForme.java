@@ -27,7 +27,9 @@ public class groupeForme extends Forme {
   }
 
   public void addForme(Forme forme) {
-    if (!checkname(forme.getName())) this.listforme.add(forme);
+    if (!checkname(forme.getName())) {
+      this.listforme.add(forme);
+    }
   }
 
   public void move(double x, double y) {

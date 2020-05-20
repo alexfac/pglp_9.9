@@ -1,7 +1,5 @@
 package uvsq21603110.Command;
 
-import uvsq21603110.Forme.Forme;
-
 import java.util.Scanner;
 import uvsq21603110.Forme.*;
 import uvsq21603110.Forme.Point;
@@ -76,7 +74,8 @@ public class DrawingTui {
                         new Point(x2, y2));
               } catch (Exception e) {
                 System.out.println(
-                    "Commande invalide, verifier qu'il n'y ait pas d'espaces ou de parametres manquants");
+                    "Commande invalide, verifier qu'il n'y ait pas d'espaces "
+                        + "ou de parametres manquants");
               }
             }
           }
@@ -122,7 +121,9 @@ public class DrawingTui {
       } else if (in.contains("load")) {
         String name = in.substring(in.indexOf("(") + 1, in.lastIndexOf(")"));
         command = new CommandLoad(name, this);
-      } else System.out.println("Verifiez votre commande");
+      } else {
+        System.out.println("Verifiez votre commande");
+      }
     } catch (NumberFormatException e) {
       System.out.println("Verifiez votre commande");
     }

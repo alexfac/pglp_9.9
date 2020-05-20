@@ -1,11 +1,10 @@
 package uvsq21603110.DAO;
 
-import uvsq21603110.Forme.*;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import uvsq21603110.Forme.*;
 
 public class DAOGroupe extends DAOJdbc<groupeForme> {
   @Override

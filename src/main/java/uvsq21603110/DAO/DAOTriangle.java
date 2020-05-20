@@ -1,11 +1,10 @@
 package uvsq21603110.DAO;
 
-import uvsq21603110.Forme.Point;
-import uvsq21603110.Forme.Triangle;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import uvsq21603110.Forme.Point;
+import uvsq21603110.Forme.Triangle;
 
 public class DAOTriangle extends DAOJdbc<Triangle> {
   @Override

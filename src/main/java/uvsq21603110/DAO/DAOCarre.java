@@ -1,11 +1,10 @@
 package uvsq21603110.DAO;
 
-import uvsq21603110.Forme.Carre;
-import uvsq21603110.Forme.Point;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import uvsq21603110.Forme.Carre;
+import uvsq21603110.Forme.Point;
 
 public class DAOCarre extends DAOJdbc<Carre> {
   @Override

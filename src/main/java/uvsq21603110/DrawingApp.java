@@ -1,13 +1,12 @@
 package uvsq21603110;
 
-import uvsq21603110.Command.Command;
-import uvsq21603110.Command.DrawingTui;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import uvsq21603110.Command.Command;
+import uvsq21603110.Command.DrawingTui;
 
 public class DrawingApp {
 
@@ -40,15 +39,20 @@ public class DrawingApp {
       Table = "CREATE TABLE intoGroupe(nom varchar(50), nomforme varchar(50), forme varchar(30))";
       statement.execute(Table);
       Table =
-          "CREATE TABLE  Carre(nom varchar(50), hautgauchex double, hautgauchey double, cote double)";
+          "CREATE TABLE  Carre(nom varchar(50), "
+              + "hautgauchex double, hautgauchey double, cote double)";
       statement.execute(Table);
       Table =
-          "CREATE TABLE  Triangle(nom varchar(50), ax double, ay double, dx double, dy double, cx double, cy double)";
-      statement.execute(Table);
-      Table = "CREATE TABLE  Cercle(nom varchar(50), centrex double, centrey double, rayon double)";
+          "CREATE TABLE  Triangle(nom varchar(50), "
+              + "ax double, ay double, dx double, dy double, cx double, cy double)";
       statement.execute(Table);
       Table =
-          "CREATE TABLE  Rectangle(nom varchar(50), hautgauchex double, hautgauchey double, longueur double, largeur double)";
+          "CREATE TABLE  Cercle(nom varchar(50), "
+              + "centrex double, centrey double, rayon double)";
+      statement.execute(Table);
+      Table =
+          "CREATE TABLE  Rectangle(nom varchar(50), "
+              + "hautgauchex double, hautgauchey double, longueur double, largeur double)";
       statement.execute(Table);
       connexion.close();
     } catch (ClassNotFoundException | SQLException e) {

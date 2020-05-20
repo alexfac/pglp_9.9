@@ -1,11 +1,10 @@
 package uvsq21603110.DAO;
 
-import uvsq21603110.Forme.Rectangle;
-import uvsq21603110.Forme.Point;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import uvsq21603110.Forme.Point;
+import uvsq21603110.Forme.Rectangle;
 
 public class DAORectangle extends DAOJdbc<Rectangle> {
   @Override
@@ -14,7 +13,8 @@ public class DAORectangle extends DAOJdbc<Rectangle> {
     try {
       PreparedStatement insertRectangle =
           this.connect.prepareStatement(
-              "INSERT INTO Rectangle(nom, hautgauchex, hautgauchey, longueur, largeur) VALUES(?,?,?,?,?)");
+              "INSERT INTO Rectangle(nom, hautgauchex, "
+                  + "hautgauchey, longueur, largeur) VALUES(?,?,?,?,?)");
       insertRectangle.setString(1, obj.getName());
       insertRectangle.setObject(2, obj.getP().getX());
       insertRectangle.setObject(3, obj.getP().getY());

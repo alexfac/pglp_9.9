@@ -26,20 +26,20 @@ public class AppTest {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
       connexion = DriverManager.getConnection("jdbc:derby:Test;create=true");
       statement = connexion.createStatement();
-
-      String delete = "DROP TABLE Groupe";
-      statement.execute(delete);
-      delete = "DROP TABLE intoGroupe";
-      statement.execute(delete);
-      delete = "DROP TABLE Carre";
-      statement.execute(delete);
-      delete = "DROP TABLE Cercle";
-      statement.execute(delete);
-      delete = "DROP TABLE Rectangle";
-      statement.execute(delete);
-      delete = "DROP TABLE Triangle";
-      statement.execute(delete);
-
+      /*
+            String delete = "DROP TABLE Groupe";
+            statement.execute(delete);
+            delete = "DROP TABLE intoGroupe";
+            statement.execute(delete);
+            delete = "DROP TABLE Carre";
+            statement.execute(delete);
+            delete = "DROP TABLE Cercle";
+            statement.execute(delete);
+            delete = "DROP TABLE Rectangle";
+            statement.execute(delete);
+            delete = "DROP TABLE Triangle";
+            statement.execute(delete);
+      */
       String Table = "CREATE TABLE Groupe(nom varchar(30))";
       statement.execute(Table);
       Table = "CREATE TABLE intoGroupe(nom varchar(50), nomforme varchar(50), forme varchar(30))";
