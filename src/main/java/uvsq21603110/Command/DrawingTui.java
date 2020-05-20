@@ -26,9 +26,9 @@ public class DrawingTui {
     try {
       in = in.replace(" ", "");
       if (in.contains("=")) {
-        try{
-        String[] createforme = in.split("=");
-        String name = createforme[0];
+        try {
+          String[] createforme = in.split("=");
+          String name = createforme[0];
           String forme = createforme[1].substring(0, createforme[1].indexOf('('));
           if (name.matches("") || name.matches(" ")) {
             System.out.println("pas de nom pour la forme");
@@ -80,49 +80,49 @@ public class DrawingTui {
               }
             }
           }
-          }catch(Exception e){
+        } catch (Exception e) {
           System.out.println(
-                  "Commande invalide, verifier qu'il n'y ait pas d'espaces ou de parametres manquants");
+              "Commande invalide, verifier qu'il n'y ait pas d'espaces ou de parametres manquants");
+        }
+      } else if (in.contains("move")) {
+        if (in.contains("all")) {
+          try {
+            double x =
+                Double.parseDouble(in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(',')));
+            double y =
+                Double.parseDouble(in.substring(in.lastIndexOf(",") + 1, in.lastIndexOf(')')));
+            command = new CommandMove(this.groupeForme, x, y);
+          } catch (Exception e) {
+            System.out.println("Commande invalide");
           }
-        } else if (in.contains("move")) {
-          if (in.contains("all")) {
-            try {
-              double x =
-                  Double.parseDouble(in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(',')));
-              double y =
-                  Double.parseDouble(in.substring(in.lastIndexOf(",") + 1, in.lastIndexOf(')')));
-              command = new CommandMove(this.groupeForme, x, y);
-            } catch (Exception e) {
-              System.out.println("Commande invalide");
-            }
-          } else {
-            try {
-              String nForme = in.substring(in.indexOf("(") + 1, in.lastIndexOf(",("));
-              double x =
-                  Double.parseDouble(in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(',')));
-              double y =
-                  Double.parseDouble(in.substring(in.lastIndexOf(",") + 1, in.lastIndexOf("))")));
-              for (Forme forme : this.groupeForme.getListforme()) {
-                if (forme.getName().contains(nForme)) {
-                  command = new CommandMove(forme, x, y);
-                }
+        } else {
+          try {
+            String nForme = in.substring(in.indexOf("(") + 1, in.lastIndexOf(",("));
+            double x =
+                Double.parseDouble(in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(',')));
+            double y =
+                Double.parseDouble(in.substring(in.lastIndexOf(",") + 1, in.lastIndexOf("))")));
+            for (Forme forme : this.groupeForme.getListforme()) {
+              if (forme.getName().contains(nForme)) {
+                command = new CommandMove(forme, x, y);
               }
-            } catch (Exception e) {
-              System.out.println("Commande invalide");
             }
-          } // c=carre((0,0),0) t=triangle((0,0),(0,0),(0,0)) ce=cercle((0,0),0)
-          // r=rectangle((0,0),10,10)
-        } else if (in.contains("delete")) {
-          String nameForme = in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(")"));
-          command = new CommandDeleteForme(this.groupeForme, nameForme);
-        } else if (in.contains("quit")) {
-          command = new Commandquit();
-        } else if (in.contains("save")) {
-          command = new CommandSave(this.groupeForme);
-        } else if (in.contains("load")) {
-          String name = in.substring(in.indexOf("(") + 1, in.lastIndexOf(")"));
-          command = new CommandLoad(name, this);
-        } else System.out.println("Verifiez votre commande");
+          } catch (Exception e) {
+            System.out.println("Commande invalide");
+          }
+        } // c=carre((0,0),0) t=triangle((0,0),(0,0),(0,0)) ce=cercle((0,0),0)
+        // r=rectangle((0,0),10,10)
+      } else if (in.contains("delete")) {
+        String nameForme = in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(")"));
+        command = new CommandDeleteForme(this.groupeForme, nameForme);
+      } else if (in.contains("quit")) {
+        command = new Commandquit();
+      } else if (in.contains("save")) {
+        command = new CommandSave(this.groupeForme);
+      } else if (in.contains("load")) {
+        String name = in.substring(in.indexOf("(") + 1, in.lastIndexOf(")"));
+        command = new CommandLoad(name, this);
+      } else System.out.println("Verifiez votre commande");
     } catch (NumberFormatException e) {
       System.out.println("Verifiez votre commande");
     }

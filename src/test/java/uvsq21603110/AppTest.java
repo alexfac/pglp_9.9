@@ -57,11 +57,11 @@ public class AppTest {
       statement.execute(Table);
       connexion.close();
     } catch (ClassNotFoundException | SQLException e) {
-      //e.printStackTrace();
+      // e.printStackTrace();
       try {
         connexion.close();
       } catch (SQLException ex) {
-        //ex.printStackTrace();
+        // ex.printStackTrace();
       }
     }
   }
