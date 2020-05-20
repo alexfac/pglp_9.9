@@ -55,7 +55,7 @@ public class FormeTest {
   }
 
   @Test
-  public void testGroupe(){
+  public void testGroupe() {
     groupeForme g = new groupeForme("1");
     Point p = new Point(1, 1);
     Cercle c = new Cercle("c1", p, 10);
@@ -67,7 +67,7 @@ public class FormeTest {
     g.addForme(t);
     g.addForme(c);
     g.show();
-    g.move(2,2);
+    g.move(2, 2);
     g.show();
   }
 }

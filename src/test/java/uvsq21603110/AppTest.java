@@ -32,16 +32,15 @@ public class AppTest {
       Table = "CREATE TABLE intoGroupe(nom varchar(50), nomforme varchar(50), forme varchar(30))";
       statement.execute(Table);
       Table =
-              "CREATE TABLE  Carre(nom varchar(50), hautgauchex double, hautgauchey double, cote double)";
+          "CREATE TABLE  Carre(nom varchar(50), hautgauchex double, hautgauchey double, cote double)";
       statement.execute(Table);
       Table =
-              "CREATE TABLE  Triangle(nom varchar(50), ax double, ay double, dx double, dy double, cx double, cy double)";
+          "CREATE TABLE  Triangle(nom varchar(50), ax double, ay double, dx double, dy double, cx double, cy double)";
+      statement.execute(Table);
+      Table = "CREATE TABLE  Cercle(nom varchar(50), centrex double, centrey double, rayon double)";
       statement.execute(Table);
       Table =
-              "CREATE TABLE  Cercle(nom varchar(50), centrex double, centrey double, rayon double)";
-      statement.execute(Table);
-      Table =
-              "CREATE TABLE  Rectangle(nom varchar(50), hautgauchex double, hautgauchey double, longueur double, largeur double)";
+          "CREATE TABLE  Rectangle(nom varchar(50), hautgauchex double, hautgauchey double, longueur double, largeur double)";
       statement.execute(Table);
       connexion.close();
     } catch (ClassNotFoundException | SQLException e) {
@@ -53,16 +52,16 @@ public class AppTest {
       }
     }
   }
-  @Test
 
-  public void testFindGroupeDAoJdbcGroupe(){
+  @Test
+  public void testFindGroupeDAOGroupe() {
 
     DAOJdbc daogroupe = new DAOGroupe();
-    Carre c = new Carre("c",new Point(1,1),1);
-    Carre c1 = new Carre("c1",new Point(1,1),1);
-    Cercle d = new Cercle("c",new Point(1,1),1);
-    Rectangle r= new Rectangle("r", new Point(10,10), 10, 5);
-    Triangle t = new Triangle("t", new Point(10,10), new Point(5,5), new Point(3,2));
+    Carre c = new Carre("c", new Point(1, 1), 1);
+    Carre c1 = new Carre("c1", new Point(1, 1), 1);
+    Cercle d = new Cercle("c", new Point(1, 1), 1);
+    Rectangle r = new Rectangle("r", new Point(10, 10), 10, 5);
+    Triangle t = new Triangle("t", new Point(10, 10), new Point(5, 5), new Point(3, 2));
     groupeForme g = new groupeForme("1");
     g.addForme(c);
     g.addForme(c1);
@@ -71,8 +70,9 @@ public class AppTest {
     g.addForme(t);
     daogroupe.create(g);
     groupeForme g1 = (groupeForme) daogroupe.find("1");
-    assertEquals(g1.getListforme().size() , g.getListforme().size());
-    for (int i = 0; i < g.getListforme().size(); i++)
-      g.getListforme().get(i).show();
+    assertEquals(g1.getListforme().size(), g.getListforme().size());
+    for (int i = 0; i < g1.getListforme().size(); i++){
+      g1.getListforme().get(i).show();
+    }
   }
 }

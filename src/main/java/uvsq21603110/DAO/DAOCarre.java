@@ -43,7 +43,7 @@ public class DAOCarre extends DAOJdbc<Carre> {
                 name,
                 new Point(Res.getDouble("hautgauchex"), Res.getDouble("hautgauchey")),
                 Res.getDouble("cote"));
-      }
+      };
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }

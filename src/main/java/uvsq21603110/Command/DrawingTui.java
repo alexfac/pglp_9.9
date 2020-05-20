@@ -17,8 +17,8 @@ public class DrawingTui {
   }
 
   public void setGroupeForme(groupeForme groupeForme) {
-    System.out.println(groupeForme.getName());
     this.groupeForme = groupeForme;
+    this.show();
   }
 
   public Command nextCommand() {
@@ -37,13 +37,13 @@ public class DrawingTui {
             double x = Double.parseDouble(carre[0].substring(carre[0].lastIndexOf('(') + 1));
             double y = Double.parseDouble(carre[1].substring(0, carre[1].indexOf(')')));
             double side = Double.parseDouble(carre[1].substring(0, carre[2].length() - 1));
-            command = new CommandCarre(groupeForme, name, new Point(x, y), side);
+            command = new CommandCarre(this.groupeForme, name, new Point(x, y), side);
           } else if (forme.matches("cercle")) {
             String[] cercle = in.split(",");
             double x = Double.parseDouble(cercle[0].substring(cercle[0].lastIndexOf('(') + 1));
             double y = Double.parseDouble(cercle[1].substring(0, cercle[1].indexOf(')')));
             double rayon = Double.parseDouble(cercle[1].substring(0, cercle[2].length() - 1));
-            command = new CommandCercle(groupeForme, name, new Point(x, y), rayon);
+            command = new CommandCercle(this.groupeForme, name, new Point(x, y), rayon);
           } else if (forme.matches("rectangle")) {
             String[] rectangle = in.split(",");
             double x =
@@ -52,7 +52,8 @@ public class DrawingTui {
             double longueur = Double.parseDouble(rectangle[2]);
             double largeur =
                 Double.parseDouble(rectangle[3].substring(0, rectangle[3].indexOf(')')));
-            command = new CommandRectangle(groupeForme, name, new Point(x, y), longueur, largeur);
+            command =
+                new CommandRectangle(this.groupeForme, name, new Point(x, y), longueur, largeur);
           } else if (forme.matches("triangle")) {
             try {
               String[] triangle = in.split(",");
@@ -67,7 +68,11 @@ public class DrawingTui {
               double y2 = Double.parseDouble(triangle[5].substring(0, triangle[5].indexOf(')')));
               command =
                   new CommandTriangle(
-                      groupeForme, name, new Point(x, y), new Point(x1, y1), new Point(x2, y2));
+                      this.groupeForme,
+                      name,
+                      new Point(x, y),
+                      new Point(x1, y1),
+                      new Point(x2, y2));
             } catch (Exception e) {
               System.out.println(
                   "Commande invalide, verifier qu'il n'y ait pas d'espaces ou de parametres manquants");
@@ -81,7 +86,7 @@ public class DrawingTui {
                 Double.parseDouble(in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(',')));
             double y =
                 Double.parseDouble(in.substring(in.lastIndexOf(",") + 1, in.lastIndexOf(')')));
-            command = new CommandMove(groupeForme, x, y);
+            command = new CommandMove(this.groupeForme, x, y);
           } catch (Exception e) {
             System.out.println("Commande invalide");
           }
@@ -92,7 +97,7 @@ public class DrawingTui {
                 Double.parseDouble(in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(',')));
             double y =
                 Double.parseDouble(in.substring(in.lastIndexOf(",") + 1, in.lastIndexOf("))")));
-            for (Forme forme : groupeForme.getListforme()) {
+            for (Forme forme : this.groupeForme.getListforme()) {
               if (forme.getName().contains(nForme)) {
                 command = new CommandMove(forme, x, y);
               }
@@ -104,12 +109,12 @@ public class DrawingTui {
         // r=rectangle((0,0),10,10)
       } else if (in.contains("delete")) {
         String nameForme = in.substring(in.lastIndexOf("(") + 1, in.lastIndexOf(")"));
-        command = new CommandDeleteForme(groupeForme, nameForme);
+        command = new CommandDeleteForme(this.groupeForme, nameForme);
       } else if (in.contains("quit")) {
         command = new Commandquit();
-      }else if(in.contains("save")){
+      } else if (in.contains("save")) {
         command = new CommandSave(this.groupeForme);
-      }else if( in.contains("load")){
+      } else if (in.contains("load")) {
         String name = in.substring(in.indexOf("(") + 1, in.lastIndexOf(")"));
         command = new CommandLoad(name, this);
       } else System.out.println("Verifiez votre commande");
@@ -120,8 +125,8 @@ public class DrawingTui {
   }
 
   public void show() {
-    System.out.println("Nom du groupe : " + groupeForme.getName());
-    for (Forme forme : groupeForme.getListforme()) {
+    System.out.println("Nom du groupe : " + this.groupeForme.getName());
+    for (Forme forme : this.groupeForme.getListforme()) {
       forme.show();
     }
   }
