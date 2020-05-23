@@ -44,13 +44,13 @@ public class DrawingTui {
               String[] carre = in.split(",");
               double x = Double.parseDouble(carre[0].substring(carre[0].lastIndexOf('(') + 1));
               double y = Double.parseDouble(carre[1].substring(0, carre[1].indexOf(')')));
-              double side = Double.parseDouble(carre[1].substring(0, carre[2].length() - 1));
+              double side = Double.parseDouble(carre[2].substring(0, carre[2].length() - 1));
               command = new CommandCarre(this.groupeForme, name, new Point(x, y), side);
             } else if (forme.matches("cercle")) {
               String[] cercle = in.split(",");
               double x = Double.parseDouble(cercle[0].substring(cercle[0].lastIndexOf('(') + 1));
               double y = Double.parseDouble(cercle[1].substring(0, cercle[1].indexOf(')')));
-              double rayon = Double.parseDouble(cercle[1].substring(0, cercle[2].length() - 1));
+              double rayon = Double.parseDouble(cercle[2].substring(0, cercle[2].length() - 1));
               command = new CommandCercle(this.groupeForme, name, new Point(x, y), rayon);
             } else if (forme.matches("rectangle")) {
               String[] rectangle = in.split(",");
