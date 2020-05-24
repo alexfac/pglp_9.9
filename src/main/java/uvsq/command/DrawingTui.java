@@ -89,6 +89,7 @@ public class DrawingTui {
             }
           }
         } catch (Exception e) {
+          e.printStackTrace();
           System.out.println(
               "Commande invalide, verifier qu'il n'y ait pas d'espaces ou de parametres manquants");
         }

@@ -10,8 +10,9 @@ public class DaoRectangle extends DaoJdbc<Rectangle> {
   @Override
   public Rectangle create(Rectangle obj) {
     this.open();
+    PreparedStatement insertRectangle = null;
     try {
-      PreparedStatement insertRectangle =
+      insertRectangle =
           this.connect.prepareStatement(
               "INSERT INTO Rectangle(nom, hautgauchex, "
                   + "hautgauchey, longueur, largeur) VALUES(?,?,?,?,?)");
@@ -23,6 +24,18 @@ public class DaoRectangle extends DaoJdbc<Rectangle> {
       insertRectangle.executeUpdate();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (insertRectangle != null) {
+          try {
+            insertRectangle.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     this.close();
     return null;
@@ -32,8 +45,9 @@ public class DaoRectangle extends DaoJdbc<Rectangle> {
   public Rectangle find(String name) {
     this.open();
     Rectangle r = null;
+    PreparedStatement selectRectangle = null;
     try {
-      PreparedStatement selectRectangle =
+      selectRectangle =
           this.connect.prepareStatement("SELECT * FROM Rectangle WHERE nom = ?");
       selectRectangle.setString(1, name);
       selectRectangle.execute();
@@ -42,8 +56,21 @@ public class DaoRectangle extends DaoJdbc<Rectangle> {
         Point p = new Point(res.getDouble("hautgauchex"), res.getDouble("hautgauchey"));
         r = new Rectangle(name, p, res.getDouble("longueur"), res.getDouble("largeur"));
       }
+      res.close();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (selectRectangle != null) {
+          try {
+            selectRectangle.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     this.close();
     return r;
@@ -57,15 +84,27 @@ public class DaoRectangle extends DaoJdbc<Rectangle> {
   @Override
   public void delete(String name) {
     this.open();
+    PreparedStatement deleteRectangle =  null;
     try {
-      PreparedStatement deleteRectangle =
+      deleteRectangle =
           this.connect.prepareStatement("DELETE FROM Rectangle WHERE nom = ?");
       deleteRectangle.setString(1, name);
       deleteRectangle.execute();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (deleteRectangle != null) {
+          try {
+            deleteRectangle.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
-
     this.close();
   }
 }

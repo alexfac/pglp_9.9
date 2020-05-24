@@ -10,8 +10,9 @@ public class DaoCarre extends DaoJdbc<Carre> {
   @Override
   public Carre create(Carre obj) {
     this.open();
+    PreparedStatement insertCarre = null;
     try {
-      PreparedStatement insertCarre =
+      insertCarre =
           this.connect.prepareStatement(
               "INSERT INTO Carre(nom, hautgauchex, hautgauchey, cote) VALUES(?,?,?,?)");
       insertCarre.setString(1, obj.getName());
@@ -21,17 +22,30 @@ public class DaoCarre extends DaoJdbc<Carre> {
       insertCarre.executeUpdate();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (insertCarre != null) {
+          try {
+            insertCarre.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     this.close();
-    return null;
+    return obj;
   }
 
   @Override
   public Carre find(String name) {
     this.open();
     Carre c = null;
+    PreparedStatement selectCarre = null;
     try {
-      PreparedStatement selectCarre =
+      selectCarre =
           this.connect.prepareStatement("SELECT * FROM Carre WHERE nom = ?");
       selectCarre.setString(1, name);
       selectCarre.execute();
@@ -43,9 +57,21 @@ public class DaoCarre extends DaoJdbc<Carre> {
                 new Point(res.getDouble("hautgauchex"), res.getDouble("hautgauchey")),
                 res.getDouble("cote"));
       }
-      ;
+      res.close();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (selectCarre != null) {
+          try {
+            selectCarre.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     this.close();
     return c;
@@ -59,15 +85,26 @@ public class DaoCarre extends DaoJdbc<Carre> {
   @Override
   public void delete(String name) {
     this.open();
+    PreparedStatement deleteCarre = null;
     try {
-      PreparedStatement deleteCarre =
-          this.connect.prepareStatement("DELETE FROM Carre WHERE nom = ?");
+      deleteCarre = this.connect.prepareStatement("DELETE FROM Carre WHERE nom = ?");
       deleteCarre.setString(1, name);
       deleteCarre.execute();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (deleteCarre != null) {
+          try {
+            deleteCarre.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      this.close();
     }
-
-    this.close();
   }
 }

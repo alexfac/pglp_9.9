@@ -15,16 +15,18 @@ public class DaoGroupe extends DaoJdbc<Groupeforme> {
   @Override
   public Groupeforme create(Groupeforme obj) {
     this.open();
+    PreparedStatement insertGroupe = null;
+    PreparedStatement insertIntoGroupe = null;
     try {
-      PreparedStatement insertGroupe =
+      insertGroupe =
           this.connect.prepareStatement("INSERT INTO Groupe(nom) VALUES (?)");
-      PreparedStatement insertIntoGroupe =
+      insertIntoGroupe =
           this.connect.prepareStatement(
               "INSERT INTO intoGroupe(nom, nomforme, forme) VALUES (?,?,?)");
       insertGroupe.setString(1, obj.getName());
       insertGroupe.executeUpdate();
-
       ArrayList<Forme> listforme = obj.getListforme();
+
       for (Forme forme : listforme) {
         if (forme instanceof Carre) {
           DaoJdbc dao = new DaoCarre();
@@ -32,33 +34,55 @@ public class DaoGroupe extends DaoJdbc<Groupeforme> {
           insertIntoGroupe.setString(1, obj.getName());
           insertIntoGroupe.setString(2, forme.getName());
           insertIntoGroupe.setString(3, "carre");
-          insertIntoGroupe.execute();
+          insertIntoGroupe.executeUpdate();
         } else if (forme instanceof Cercle) {
           DaoJdbc dao = new DaoCercle();
           dao.create(forme);
           insertIntoGroupe.setString(1, obj.getName());
           insertIntoGroupe.setString(2, forme.getName());
           insertIntoGroupe.setString(3, "cercle");
-          insertIntoGroupe.execute();
+          insertIntoGroupe.executeUpdate();
         } else if (forme instanceof Rectangle) {
           DaoJdbc dao = new DaoRectangle();
           dao.create(forme);
           insertIntoGroupe.setString(1, obj.getName());
           insertIntoGroupe.setString(2, forme.getName());
           insertIntoGroupe.setString(3, "rectangle");
-          insertIntoGroupe.execute();
+          insertIntoGroupe.executeUpdate();
         } else if (forme instanceof Triangle) {
           DaoJdbc dao = new DaoTriangle();
           dao.create(forme);
           insertIntoGroupe.setString(1, obj.getName());
           insertIntoGroupe.setString(2, forme.getName());
           insertIntoGroupe.setString(3, "triangle");
-          insertIntoGroupe.execute();
+          insertIntoGroupe.executeUpdate();
         }
       }
-
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (insertGroupe != null) {
+          try {
+            insertGroupe.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      try {
+        if (insertIntoGroupe != null) {
+          try {
+            insertIntoGroupe.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     System.out.println("Sauvegarde effectue");
     this.close();
@@ -69,11 +93,11 @@ public class DaoGroupe extends DaoJdbc<Groupeforme> {
   public Groupeforme find(String name) {
     this.open();
     Groupeforme gf = null;
+    PreparedStatement selectGroupe = null;
+    PreparedStatement selectIntoGroupe = null;
     try {
-      PreparedStatement selectGroupe =
-          this.connect.prepareStatement("SELECT * FROM Groupe WHERE nom = ?");
-      PreparedStatement selectIntoGroupe =
-          this.connect.prepareStatement("SELECT * FROM intoGroupe WHERE nom = ? ");
+      selectGroupe = this.connect.prepareStatement("SELECT * FROM Groupe WHERE nom = ?");
+      selectIntoGroupe = this.connect.prepareStatement("SELECT * FROM intoGroupe WHERE nom = ? ");
       selectGroupe.setString(1, name);
       selectIntoGroupe.setString(1, name);
       ResultSet res = selectGroupe.executeQuery();
@@ -96,12 +120,38 @@ public class DaoGroupe extends DaoJdbc<Groupeforme> {
           }
         }
       }
+      res.close();
+      res1.close();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (selectGroupe != null) {
+          try {
+            selectGroupe.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      try {
+        if (selectIntoGroupe != null) {
+          try {
+            selectIntoGroupe.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     this.close();
     return gf;
   }
+
 
   @Override
   public Groupeforme update(Groupeforme obj) {
@@ -111,15 +161,27 @@ public class DaoGroupe extends DaoJdbc<Groupeforme> {
   @Override
   public void delete(String name) {
     this.open();
+    PreparedStatement deleteGroupe = null;
     try {
-      PreparedStatement deleteGroupe =
+      deleteGroupe =
           this.connect.prepareStatement("DELETE FROM Groupe WHERE nom = ?");
       deleteGroupe.setString(1, name);
       deleteGroupe.execute();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (deleteGroupe != null) {
+          try {
+            deleteGroupe.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
-
     this.close();
   }
 }

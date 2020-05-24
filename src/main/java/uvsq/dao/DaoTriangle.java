@@ -10,8 +10,9 @@ public class DaoTriangle extends DaoJdbc<Triangle> {
   @Override
   public Triangle create(Triangle obj) {
     this.open();
+    PreparedStatement insertTriangle = null;
     try {
-      PreparedStatement insertTriangle =
+      insertTriangle =
           this.connect.prepareStatement(
               "INSERT INTO Triangle(nom, ax, ay, dx, dy, cx, cy) VALUES(?,?,?,?,?,?,?)");
       insertTriangle.setString(1, obj.getName());
@@ -25,6 +26,18 @@ public class DaoTriangle extends DaoJdbc<Triangle> {
       insertTriangle.executeUpdate();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (insertTriangle != null) {
+          try {
+            insertTriangle.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     this.close();
     return null;
@@ -34,8 +47,9 @@ public class DaoTriangle extends DaoJdbc<Triangle> {
   public Triangle find(String name) {
     this.open();
     Triangle t = null;
+    PreparedStatement selectTriangle = null;
     try {
-      PreparedStatement selectTriangle =
+      selectTriangle =
           this.connect.prepareStatement("SELECT * FROM Triangle WHERE nom = ?");
       selectTriangle.setString(1, name);
       selectTriangle.execute();
@@ -48,8 +62,21 @@ public class DaoTriangle extends DaoJdbc<Triangle> {
                 new Point(res.getDouble("dx"), res.getDouble("dy")),
                 new Point(res.getDouble("cx"), res.getDouble("cy")));
       }
+      res.close();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (selectTriangle != null) {
+          try {
+            selectTriangle.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     this.close();
     return t;
@@ -63,15 +90,28 @@ public class DaoTriangle extends DaoJdbc<Triangle> {
   @Override
   public void delete(String name) {
     this.open();
+    PreparedStatement deleteTriangle = null;
     try {
-      PreparedStatement deleteTriangle =
+      deleteTriangle =
           this.connect.prepareStatement("DELETE FROM Triangle WHERE nom = ?");
       deleteTriangle.setString(1, name);
       deleteTriangle.execute();
+      deleteTriangle.close();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (deleteTriangle != null) {
+          try {
+            deleteTriangle.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      this.close();
     }
-
-    this.close();
   }
 }

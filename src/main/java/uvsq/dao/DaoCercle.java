@@ -10,8 +10,9 @@ public class DaoCercle extends DaoJdbc<Cercle> {
   @Override
   public Cercle create(Cercle obj) {
     this.open();
+    PreparedStatement insertCercle = null;
     try {
-      PreparedStatement insertCercle =
+      insertCercle =
           this.connect.prepareStatement(
               "INSERT INTO Cercle(nom, centrex, centrey, rayon) VALUES(?,?,?,?)");
       insertCercle.setString(1, obj.getName());
@@ -21,6 +22,18 @@ public class DaoCercle extends DaoJdbc<Cercle> {
       insertCercle.executeUpdate();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (insertCercle != null) {
+          try {
+            insertCercle.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     this.close();
     return null;
@@ -30,9 +43,9 @@ public class DaoCercle extends DaoJdbc<Cercle> {
   public Cercle find(String name) {
     this.open();
     Cercle c = null;
+    PreparedStatement selectCercle = null;
     try {
-      PreparedStatement selectCercle =
-          this.connect.prepareStatement("SELECT * FROM Cercle WHERE nom = ?");
+      selectCercle = this.connect.prepareStatement("SELECT * FROM Cercle WHERE nom = ?");
       selectCercle.setString(1, name);
       selectCercle.execute();
       ResultSet res = selectCercle.executeQuery();
@@ -43,8 +56,21 @@ public class DaoCercle extends DaoJdbc<Cercle> {
                 new Point(res.getDouble("centrex"), res.getDouble("centrey")),
                 res.getDouble("rayon"));
       }
+      res.close();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (selectCercle != null) {
+          try {
+            selectCercle.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
     this.close();
     return c;
@@ -58,13 +84,26 @@ public class DaoCercle extends DaoJdbc<Cercle> {
   @Override
   public void delete(String name) {
     this.open();
+    PreparedStatement deleteCercle = null;
     try {
-      PreparedStatement deleteCercle =
+      deleteCercle =
           this.connect.prepareStatement("DELETE FROM Cercle WHERE nom = ?");
       deleteCercle.setString(1, name);
       deleteCercle.execute();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
+    } finally {
+      try {
+        if (deleteCercle != null) {
+          try {
+            deleteCercle.close();
+          } catch (SQLException throwables) {
+            throwables.printStackTrace();
+          }
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
 
     this.close();
