@@ -20,7 +20,7 @@ public class CommandDeleteForme implements Command {
     for (int i = 0; i < listforme.size(); i++) {
       if (listforme.get(i).getName().matches(name)) {
         listforme.remove(i);
-      } else if(i == listforme.size()-1) {
+      } else if (i == listforme.size() - 1) {
         System.out.println("La forme n'existe pas");
       }
     }
