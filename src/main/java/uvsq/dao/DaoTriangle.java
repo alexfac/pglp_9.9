@@ -22,7 +22,7 @@ public class DaoTriangle extends DaoJdbc<Triangle> {
       insertTriangle.setObject(6, obj.getP3().getX());
       insertTriangle.setObject(7, obj.getP3().getY());
 
-      insertTriangle.execute();
+      insertTriangle.executeUpdate();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }

@@ -22,7 +22,7 @@ public class DaoGroupe extends DaoJdbc<Groupeforme> {
           this.connect.prepareStatement(
               "INSERT INTO intoGroupe(nom, nomforme, forme) VALUES (?,?,?)");
       insertGroupe.setString(1, obj.getName());
-      insertGroupe.execute();
+      insertGroupe.executeUpdate();
 
       ArrayList<Forme> listforme = obj.getListforme();
       for (Forme forme : listforme) {

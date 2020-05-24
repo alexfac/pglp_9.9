@@ -18,7 +18,7 @@ public class DaoCercle extends DaoJdbc<Cercle> {
       insertCercle.setObject(2, obj.getCentre().getX());
       insertCercle.setObject(3, obj.getCentre().getY());
       insertCercle.setDouble(4, obj.getRayon());
-      insertCercle.execute();
+      insertCercle.executeUpdate();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }

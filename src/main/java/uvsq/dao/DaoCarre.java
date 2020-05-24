@@ -18,7 +18,7 @@ public class DaoCarre extends DaoJdbc<Carre> {
       insertCarre.setObject(2, obj.getHG().getX());
       insertCarre.setObject(3, obj.getHG().getY());
       insertCarre.setDouble(4, obj.getSide());
-      insertCarre.execute();
+      insertCarre.executeUpdate();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }

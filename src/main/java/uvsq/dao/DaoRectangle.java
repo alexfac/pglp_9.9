@@ -20,7 +20,7 @@ public class DaoRectangle extends DaoJdbc<Rectangle> {
       insertRectangle.setObject(3, obj.getP().getY());
       insertRectangle.setDouble(4, obj.getLength());
       insertRectangle.setDouble(5, obj.getWidth());
-      insertRectangle.execute();
+      insertRectangle.executeUpdate();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
